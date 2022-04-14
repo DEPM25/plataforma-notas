@@ -188,7 +188,7 @@
                 }
             }
         }
-
+        /* comentario */
         function showId(){
             var ajax = new XMLHttpRequest();
             var method = "POST";
