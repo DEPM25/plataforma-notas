@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<!-- dimitri es gey -->
+<!-- coment -->
     <div class="main">
         <div class="asignacion-content">
             <button id="openModal" class="btn btn-success">Asignacion</button>
