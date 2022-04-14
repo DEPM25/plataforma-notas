@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<!-- cambio de comentario -->
+<!-- cambio de comentarios -->
     <div class="main">
         <div class="asignacion-content">
             <button id="openModal" class="btn btn-success">Asignacion</button>
