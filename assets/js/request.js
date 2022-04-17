@@ -9,7 +9,7 @@ $(document).ready(function ($) {
 		type: "POST",
 		dataType: "json",
 		success: function (data) {
-			if (!data.message) {
+			if (!data.error) {
 				$(data).each(function (index, value) {
 					let option = `<option value="${value.id}" onclick="getAlumnosByGroup(this.value);">${value.nom_asignatura} - ${value.nom_grupo}</option>`;
 					$("#grupos").append(option);
@@ -17,7 +17,7 @@ $(document).ready(function ($) {
 			} else {
 				$(".logros").hide();
 				$(".alert").show();
-				$("#mensaje").html(data.message);
+				$("#mensaje").html(data.error);
 			}
 		},
 	});
@@ -37,7 +37,7 @@ function getAlumnosByGroup(val) {
 			periodo: periodo,
 		},
 		success: function (data) {
-			if (!data.message) {
+			if (!data.error) {
 				$(".alert").hide();
 				$(".content-table").show();
 				$(".logros").show();
@@ -46,7 +46,7 @@ function getAlumnosByGroup(val) {
 				$(".content-table").hide();
 				$(".logros").hide();
 				$(".alert").show();
-				$("#mensaje").html(data.message);
+				$("#mensaje").html(data.error);
 			}
 		},
 	});

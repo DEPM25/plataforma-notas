@@ -20,7 +20,7 @@ class LoginModel extends CI_Model {
         $consulta = "SELECT usuarios.id, usuarios.nick, usuarios.status, rol.nom_rol, info_usuarios.*
                     FROM usuarios
                     INNER JOIN info_usuarios ON usuarios.id = info_usuarios.id_usuarios
-                    INNER JOIN rol ON usuarios.id_rol = rol.id_rol
+                    INNER JOIN rol ON usuarios.id_rol = rol.id
                     WHERE usuarios.nick = '$user'";
         $result = $this->db->query($consulta);
 

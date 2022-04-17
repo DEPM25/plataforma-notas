@@ -34,7 +34,7 @@ class Login extends CI_Controller
             $pass = md5($this->input->post('pass'));
 
             if (!$this->LoginModel->login($user, $pass)) {
-                echo json_encode(array('message' => 'Verificar sus credenciales'));
+                echo json_encode(array('error' => 'Verificar sus credenciales'));
                 $this->output->set_status_header(401);
                 exit;
             } else {

@@ -14,6 +14,7 @@
 <body>
     <div class="row">
         <h2>Insertar Indicadores de desempeño para los grupos asignados</h2>
+        
 
         <div class="col-12">
             <div class="alert" style="display: none;">
@@ -56,6 +57,7 @@
 
     <script>
         $(document).ready(function() {
+            /* Funcion para colocar más logros */
             var i = 2;
             $('#add_logros').click(function() {
                 if (i < 4) {
@@ -70,6 +72,32 @@
                 $('#logro-group_' + button_id + '').remove();
 
             });
+            /* Funcion para obtener asignaturas */
+            $.ajax({
+                url: 'getAsignaturas',
+                method: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    if (!data.error) {
+                        $.each(data, function(index, value) {
+                            var checkbox = `<div class="checkbox-info"><label>${value.nom_asignatura} - ${value.nom_grupo}</label><input class="checkbox-logros" name="logros[]" type="checkbox" value="${value.id}" /></div>`;
+                            $('.form-checkbox').append(checkbox);
+                        });
+                    } else {
+                        $(".form_logros").hide();
+                        $("#mensaje_alert").html(data.error);
+                        $(".alert").show();
+                    }
+                }
+            });
+
+            $.ajax({
+                url: 'getTextLogros',
+                method: 'POST',
+                success: function(data){
+                    console.log("data");
+                }
+            });
         })
 
         $('#submit').click(function() {
@@ -79,32 +107,12 @@
                 dataType: 'json',
                 data: $('#form_logros').serialize(),
                 success: function(data) {
-                    if (!data.message) {
+                    if (!data.error) {
                         $('#form_logros')[0].reset();
                         $("#mensaje_success").html(data.success);
                         $(".success").show();
                     } else {
-                        $("#mensaje_alert").html(data.message);
-                        $(".alert").show();
-                    }
-                }
-            });
-        })
-
-        $(document).ready(function() {
-            $.ajax({
-                url: 'getAsignaturas',
-                method: 'POST',
-                dataType: 'json',
-                success: function(data) {
-                    if (!data.message) {
-                        $.each(data, function(index, value) {
-                            var checkbox = `<div class="checkbox-info"><label>${value.nom_asignatura} - ${value.nom_grupo}</label><input class="checkbox-logros" name="logros[]" type="checkbox" value="${value.id}" /></div>`;
-                            $('.form-checkbox').append(checkbox);
-                        });
-                    } else {
-                        $(".form_logros").hide();
-                        $("#mensaje").html(data.message);
+                        $("#mensaje_alert").html(data.error);
                         $(".alert").show();
                     }
                 }

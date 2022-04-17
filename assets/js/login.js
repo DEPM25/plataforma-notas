@@ -27,7 +27,7 @@
                 401: function(xhr){
                     var json = JSON.parse(xhr.responseText);
                     $(".alert").show();
-                    $("#mensaje").html(json.message);
+                    $("#mensaje").html(json.error);
                 }
             },
         });

@@ -24,7 +24,7 @@ class Notas extends CI_Controller
 	{
 		$id_user = $this->session->userdata('id');
 		if (!$res = $this->Teacher_m->getGruposDocente($id_user)) {
-			echo json_encode(array('message' => 'Aún no se le han asignado grupos'));
+			echo json_encode(array('error' => 'Aún no se le han asignado grupos'));
 		} else {
 			echo json_encode($res);
 		}
@@ -39,8 +39,8 @@ class Notas extends CI_Controller
 
 		if (!$res = $this->Teacher_m->getAlumnosByGrupo($id_grupo)) {
 		echo"<div class='alert'>
-			<span class='closebtn' onclick='this.parentElement.style.display=`none`;'>&times;</span>
-			<p id='mensaje'>Aún no se le asignan estudiantes</p>
+				<span class='closebtn' onclick='this.parentElement.style.display=`none`;'>&times;</span>
+				<p id='mensaje'>Aún no se le asignan estudiantes</p>
 			</div>" ;
 		} else {
 				if(!$sql = $this->Teacher_m->mostrarNotas($periodo)){

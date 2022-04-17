@@ -32,7 +32,7 @@ class Teacher_m extends CI_Model{
     }
 
     public function insertLogros($id_logro, $nom_logro){
-        $this->db->insert('logros', array('nom_logro'=>$nom_logro, 'id_asignacion'=>$id_logro));
+        $this->db->insert('logros', array('nom_logro'=>$nom_logro, 'id_asignatura'=>$id_logro));
     }
 
     public function getAsignaturasId($id_user){

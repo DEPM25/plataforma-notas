@@ -534,12 +534,6 @@ a, #log_out{
   border-bottom: 2px solid var(--colornav);
 }
 
-/* @media only screen and (orientation: landscape) {
-  body {
-    background-color: lightblue;
-  }
-} */
-
 .details{
   display: inherit;
   padding: 10px;
