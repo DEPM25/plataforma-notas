@@ -121,7 +121,7 @@
                         <option value="none">Seleccione...</option>
                         <?php
                             foreach($departamentos as $row){
-                                echo '<option value="'.$row->id_departamento.'">'.$row->departamento.'</option>';
+                                echo '<option value="'.$row->cod_departamento.'">'.$row->departamento.'</option>';
                             }
                         ?>
                     </select>
@@ -153,7 +153,7 @@
                     $.ajax({
                         url:"<?php echo base_url('Secretary/Alumnos/getMunicipios'); ?>",
                         method: "POST",
-                        data:{id_departamento:mun_id},
+                        data:{cod_departamento:mun_id},
                         success: function(data){
                             $('#municipio').html(data);
                         }
@@ -180,7 +180,7 @@
                     var html = "";
                     html += "<option value=''>Seleccione...</option>";
                     for (var i = 0; i<data.length; i++) {
-                        var idRol = data[i].id_rol;
+                        var idRol = data[i].id;
                         var nom_rol = data[i].nom_rol;
                         html += "<option value="+idRol+">"+nom_rol+"</option>";
                     }
@@ -221,6 +221,7 @@
                 method: "POST",
                 data:{tipo_user:cod_user},
                 success: function(data){
+                    console.log(data);
                     $('#code_user').val(data);
                 }
             });

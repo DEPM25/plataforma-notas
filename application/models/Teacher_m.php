@@ -31,16 +31,34 @@ class Teacher_m extends CI_Model{
         $this->db->close();
     }
 
-    public function insertLogros($id_logro, $nom_logro){
-        $this->db->insert('logros', array('nom_logro'=>$nom_logro, 'id_asignatura'=>$id_logro));
+    public function insertLogros($id_logro, $nom_logro, $i){
+        $sql = $this->db->insert('logros', array('codigo_logro'=>'LOG00'.$i, 'nom_logro'=>$nom_logro, 'id_asignatura'=>$id_logro));
+        if($sql){
+            return true;
+        }else{
+            false;
+        }
+        $this->db->close();
     }
 
+    /* public function getTextLogros($id_user){
+        $this->db->select('logros.nom_logro')
+                ->from('logros')
+                ->join('asignacion', 'asignacion.id = logros.id_asignatura')
+                ->where('asignacion.id_usuarios_docente', $id_user);
+        $sql = $this->db->get();
+        if (!$sql->result()) {
+            return false;
+        }
+        return $sql->result();
+    } */
+
     public function getAsignaturasId($id_user){
-        $this->db->select('asignacion.id, grupos.nom_grupo, asignaturas.nom_asignatura');
+        $this->db->select('asignacion.codigo_asignacion, grupos.nom_grupo, asignaturas.nom_asignatura');
         $this->db->from('asignacion');
-        $this->db->join('grupos', 'grupos.id = asignacion.id_grupos');
-        $this->db->join('asignaturas', 'asignaturas.id = asignacion.id_asignatura');
-        $this->db->where('id_usuarios_docente', $id_user);
+        $this->db->join('grupos', 'grupos.codigo_grupos = asignacion.codigo_grupos');
+        $this->db->join('asignaturas', 'asignaturas.codigo_asignatura = asignacion.codigo_asignaturas');
+        $this->db->where('codigo_usuarios_docente', $id_user);
         $sql = $this->db->get();
         return $sql->result();
 

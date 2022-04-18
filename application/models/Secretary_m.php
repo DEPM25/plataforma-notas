@@ -15,12 +15,12 @@ class Secretary_m extends CI_Model{
     public function AllMunicipios($id_departamento){
         $this->db->select('*');
         $this->db->from('municipios');
-        $this->db->where('departamentos_id_departamento', $id_departamento);
+        $this->db->where('cod_departamentos', $id_departamento);
         $this->db->order_by('municipio ASC');
         $sql = $this->db->get();
         $output = '<option value="">Seleccione...</option>';
         foreach($sql->result() as $row){
-            $output .= '<option value="'.$row->id_municipio.'">'.$row->municipio.'</option>';
+            $output .= '<option value="'.$row->cod_municipio.'">'.$row->municipio.'</option>';
         }
         return $output;
     }

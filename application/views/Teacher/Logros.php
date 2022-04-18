@@ -14,7 +14,6 @@
 <body>
     <div class="row">
         <h2>Insertar Indicadores de desempeño para los grupos asignados</h2>
-        
 
         <div class="col-12">
             <div class="alert" style="display: none;">
@@ -80,7 +79,7 @@
                 success: function(data) {
                     if (!data.error) {
                         $.each(data, function(index, value) {
-                            var checkbox = `<div class="checkbox-info"><label>${value.nom_asignatura} - ${value.nom_grupo}</label><input class="checkbox-logros" name="logros[]" type="checkbox" value="${value.id}" /></div>`;
+                            var checkbox = `<div class="checkbox-info"><label>${value.nom_asignatura} - ${value.nom_grupo}</label><input class="checkbox-logros" name="logros[]" type="checkbox" value="${value.codigo_asignacion}" /></div>`;
                             $('.form-checkbox').append(checkbox);
                         });
                     } else {
@@ -91,13 +90,13 @@
                 }
             });
 
-            $.ajax({
+            /* $.ajax({
                 url: 'getTextLogros',
                 method: 'POST',
                 success: function(data){
-                    console.log("data");
+                    console.log(data);
                 }
-            });
+            }); */
         })
 
         $('#submit').click(function() {
@@ -107,6 +106,7 @@
                 dataType: 'json',
                 data: $('#form_logros').serialize(),
                 success: function(data) {
+
                     if (!data.error) {
                         $('#form_logros')[0].reset();
                         $("#mensaje_success").html(data.success);

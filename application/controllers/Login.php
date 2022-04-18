@@ -40,7 +40,7 @@ class Login extends CI_Controller
             } else {
                 $data_session = $this->LoginModel->getDataUser($user);
                 $data = array(
-                    'id' => $data_session->id,
+                    'codigo_user' => $data_session->codigo_user,
                     'n_identificacion' => $data_session->n_identificacion,
                     'nombre_1' => $data_session->nombre_1,
                     'nombre_2' => $data_session->nombre_2,

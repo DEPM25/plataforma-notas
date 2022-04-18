@@ -32,8 +32,8 @@ class Alumnos extends CI_Controller{
 
     public function getMunicipios()
     {
-        if($this->input->post('id_departamento')){
-            echo $this->Secretary_m->AllMunicipios($this->input->post('id_departamento'));
+        if($this->input->post('cod_departamento')){
+            echo $this->Secretary_m->AllMunicipios($this->input->post('cod_departamento'));
         }
     }
 
@@ -86,6 +86,7 @@ class Alumnos extends CI_Controller{
             $type="0000000".$data;
             $type="ADM".substr($type,strlen($type)-4,7);
         }
+        
         echo $type;
     }
 
