@@ -22,7 +22,7 @@ class Notas extends CI_Controller
 	//FUNCION PARA OBTENER LOS GRUPOS DE LA DB
 	public function getGrupos()
 	{
-		$id_user = $this->session->userdata('id');
+		$id_user = $this->session->userdata('codigo_user');
 		if (!$res = $this->Teacher_m->getGruposDocente($id_user)) {
 			echo json_encode(array('error' => 'Aún no se le han asignado grupos'));
 		} else {
@@ -34,10 +34,11 @@ class Notas extends CI_Controller
 	public function getAlumnosByGrupoToTeacher()
 	{
 		$contador = 0;
+		$id_user = $this->session->userdata('codigo_user');
 		$id_grupo = $_POST['id_grupo'];
 		$periodo = $_POST['periodo'];
 
-		if (!$res = $this->Teacher_m->getAlumnosByGrupo($id_grupo)) {
+		if (!$res = $this->Teacher_m->getAlumnosByGrupo($id_grupo, $id_user)) {
 		echo"<div class='alert'>
 				<span class='closebtn' onclick='this.parentElement.style.display=`none`;'>&times;</span>
 				<p id='mensaje'>Aún no se le asignan estudiantes</p>

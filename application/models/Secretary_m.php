@@ -7,7 +7,7 @@ class Secretary_m extends CI_Model{
     }
 
     public function AllDepartamentos(){
-        $this->db->order_by('departamento ASC');
+        $this->db->order_by('nom_departamento ASC');
         $sql = $this->db->get('departamentos');
         return $sql->result();
     }

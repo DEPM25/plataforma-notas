@@ -121,7 +121,7 @@
                         <option value="none">Seleccione...</option>
                         <?php
                             foreach($departamentos as $row){
-                                echo '<option value="'.$row->cod_departamento.'">'.$row->departamento.'</option>';
+                                echo '<option value="'.$row->cod_departamento.'">'.$row->nom_departamento.'</option>';
                             }
                         ?>
                     </select>
@@ -141,8 +141,12 @@
                 <input class="btn" type="submit" value="Siguiente">
             </div>
         </form>
+
+        <form action="" method="POST">
+
+        </form>
     </div>
-    <!-- <script src="<?php echo base_url('assets/js/request.js'); ?>"></script> -->
+    <script src="<?php echo base_url('assets/js/request.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/jquery-v3.6.0.js'); ?>"></script>
 
     <script>
@@ -164,30 +168,6 @@
 
         showRol();
         showId();
-        function showRol(){
-            var ajax = new XMLHttpRequest();
-            var method = "POST";
-            var url = "<?php echo base_url("Secretary/Alumnos/getTipoRol"); ?>";
-            var asynchronous = true;
-
-            ajax.open(method, url, asynchronous);
-            ajax.send();
-
-            ajax.onreadystatechange = function()
-            {
-                if (this.readyState == 4 && this.status == 200) {
-                    var data = JSON.parse(this.responseText);
-                    var html = "";
-                    html += "<option value=''>Seleccione...</option>";
-                    for (var i = 0; i<data.length; i++) {
-                        var idRol = data[i].id;
-                        var nom_rol = data[i].nom_rol;
-                        html += "<option value="+idRol+">"+nom_rol+"</option>";
-                    }
-                    document.getElementById("tipo_user").innerHTML = html;
-                }
-            }
-        }
         /* comentario */
         function showId(){
             var ajax = new XMLHttpRequest();
@@ -205,7 +185,7 @@
                     var html = "";
                     html += "<option value=''>Seleccione...</option>";
                     for (var i = 0; i<data.length; i++) {
-                        var idTipo = data[i].tipo_id;
+                        var idTipo = data[i].codigo_doc;
                         var nom_id = data[i].nombre;
                         html += "<option value="+idTipo+">"+nom_id+"</option>";
                     }
@@ -221,7 +201,6 @@
                 method: "POST",
                 data:{tipo_user:cod_user},
                 success: function(data){
-                    console.log(data);
                     $('#code_user').val(data);
                 }
             });

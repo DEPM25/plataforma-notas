@@ -3,11 +3,11 @@
 class Teacher_m extends CI_Model{
 
     public function getGruposDocente($id_user){
-        $this->db->select('grupos.nom_grupo, grupos.id, asignaturas.nom_asignatura');
+        $this->db->select('grupos.nom_grupo, grupos.codigo_grupos, asignaturas.nom_asignatura');
         $this->db->from('asignacion');
-        $this->db->join('grupos', 'grupos.id = asignacion.id_grupos');
-        $this->db->join('asignaturas', 'asignaturas.id = asignacion.id_asignatura');
-        $this->db->where('asignacion.id_usuarios_docente', $id_user);
+        $this->db->join('grupos', 'grupos.codigo_grupos = asignacion.codigo_grupos');
+        $this->db->join('asignaturas', 'asignaturas.codigo_asignatura = asignacion.codigo_asignaturas');
+        $this->db->where('asignacion.codigo_usuarios_docente', $id_user);
         $sql = $this->db->get();
         if (!$sql->result()) {
             return false;
@@ -16,11 +16,9 @@ class Teacher_m extends CI_Model{
         $this->db->close();
     }
 
-    public function getAlumnosByGrupo($id_grupo){
-        $this->db->select('info_usuarios.nombre_1, info_usuarios.nombre_2, info_usuarios.apellido_1, info_usuarios.apellido_2');
-        $this->db->from('alumnos');
-        $this->db->join('info_usuarios', 'info_usuarios.id = alumnos.id_info_usuarios');
-        $this->db->where('alumnos.id_grupos', $id_grupo);
+    public function getAlumnosByGrupo($id_grupo, $id_user){
+        $this->db->select('*')
+        ->from('');
 
         $sql = $this->db->get();
         if (!$sql->result()) {
@@ -75,7 +73,7 @@ class Teacher_m extends CI_Model{
     }
 
     public function mostrarNotas($periodo){
-        $this->db->select('td_Nota_P'.$periodo.'_1, td_Nota_P'.$periodo.'_2, td_Nota_P'.$periodo.'_3, td_Nota_P'.$periodo.'_4, td_Nota_P'.$periodo.'_P');
+        /* $this->db->select('td_Nota_P'.$periodo.'_1, td_Nota_P'.$periodo.'_2, td_Nota_P'.$periodo.'_3, td_Nota_P'.$periodo.'_4, td_Nota_P'.$periodo.'_P');
         $this->db->from('tb_notas_periodo');
         $this->db->where('td_Anio_Asig', '2022');
         $this->db->where('td_Cod_Grupo', '11C');
@@ -86,7 +84,8 @@ class Teacher_m extends CI_Model{
         }
         return $sql->result_array();
 
-        $this->db->close();
+        $this->db->close(); */
+        return false;
     }
 
 }
