@@ -9,15 +9,16 @@ $(document).ready(function ($) {
 		type: "POST",
 		dataType: "json",
 		success: function (data) {
-			if (!data.message) {
+			console.log(data);
+			if (!data.error) {
 				$(data).each(function (index, value) {
-					let option = `<option value="${value.id}" onclick="getAlumnosByGroup(this.value);">${value.nom_asignatura} - ${value.nom_grupo}</option>`;
+					let option = `<option value="${value.codigo_grupos}" onclick="getAlumnosByGroup(this.value);">${value.nom_asignatura} - ${value.nom_grupo}</option>`;
 					$("#grupos").append(option);
 				});
 			} else {
 				$(".logros").hide();
 				$(".alert").show();
-				$("#mensaje").html(data.message);
+				$("#mensaje").html(data.error);
 			}
 		},
 	});
@@ -37,7 +38,7 @@ function getAlumnosByGroup(val) {
 			periodo: periodo,
 		},
 		success: function (data) {
-			if (!data.message) {
+			if (!data.error) {
 				$(".alert").hide();
 				$(".content-table").show();
 				$(".logros").show();
@@ -46,10 +47,47 @@ function getAlumnosByGroup(val) {
 				$(".content-table").hide();
 				$(".logros").hide();
 				$(".alert").show();
-				$("#mensaje").html(data.message);
+				$("#mensaje").html(data.error);
 			}
 		},
 	});
+}
+
+function showRol(){
+	var ajax = new XMLHttpRequest();
+	var method = "POST";
+	var url = "getTipoRol";
+	var asynchronous = true;
+
+	ajax.open(method, url, asynchronous);
+	ajax.send();
+
+	ajax.onreadystatechange = function()
+	{
+		if (this.readyState == 4 && this.status == 200) {
+			var data = JSON.parse(this.responseText);
+			var html = "";
+			html += "<option value=''>Seleccione...</option>";
+			if(data.cod_rol = 4){
+				for (var i = 2; i<data.length; i++) {
+					var idRol = data[i].cod_rol;
+					var nom_rol = data[i].nom_rol;
+					html += "<option value="+idRol+">"+nom_rol+"</option>";
+				}
+			}else{
+				for (var i = 0; i<data.length; i++) {
+					var idRol = data[i].cod_rol;
+					var nom_rol = data[i].nom_rol;
+					html += "<option value="+idRol+">"+nom_rol+"</option>";
+				}
+			}if (data.cod_rol = 3) {
+				
+			} else {
+				
+			}
+			document.getElementById("tipo_user").innerHTML = html;
+		}
+	}
 }
 
 function sumar1(n1) {

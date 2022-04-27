@@ -17,11 +17,11 @@ class LoginModel extends CI_Model {
 
     public function getDataUser($user)
     {
-        $consulta = "SELECT usuarios.id, usuarios.nick, usuarios.status, rol.nom_rol, info_usuarios.*
+        $consulta = "SELECT usuarios.codigo_user, usuarios.nick, usuarios.status, rol.nom_rol, info_usuarios.*
                     FROM usuarios
-                    INNER JOIN info_usuarios ON usuarios.id = info_usuarios.id_usuarios
-                    INNER JOIN rol ON usuarios.id_rol = rol.id_rol
-                    WHERE usuarios.nick = '$user'";
+                    INNER JOIN info_usuarios ON usuarios.codigo_user = info_usuarios.codigo_users
+                    INNER JOIN rol ON usuarios.cod_rol = rol.cod_rol
+                    WHERE usuarios.nick = '$user' LIMIT 1";
         $result = $this->db->query($consulta);
 
         if (!$result->result()) {
