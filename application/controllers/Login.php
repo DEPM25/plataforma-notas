@@ -16,6 +16,7 @@ class Login extends CI_Controller
         $this->load->view('index');
     }
 
+    /* Comntario */
     public function validarDatosLogin()
     {
         $this->form_validation->set_error_delimiters('', '');
