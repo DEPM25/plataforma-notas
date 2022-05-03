@@ -9,10 +9,11 @@ $(document).ready(function ($) {
 		type: "POST",
 		dataType: "json",
 		success: function (data) {
-			console.log(data);
 			if (!data.error) {
 				$(data).each(function (index, value) {
-					let option = `<option value="${value.codigo_grupos}" onclick="getAlumnosByGroup(this.value);">${value.nom_asignatura} - ${value.nom_grupo}</option>`;
+					var codigo = '';
+					codigo = value.codigo_asignacion;
+					let option = `<option value="${value.codigo_grupos}" onclick="getAlumnosByGroup(this.value, `+codigo+`);">${value.nom_asignatura} - ${value.nom_grupo}</option>`;
 					$("#grupos").append(option);
 				});
 			} else {
@@ -24,10 +25,11 @@ $(document).ready(function ($) {
 	});
 });
 
-function getAlumnosByGroup(val) {
+function getAlumnosByGroup(val, codigo_asignacion) {
+	codigo_asignacion = '000000'+codigo_asignacion;
+	var cod = codigo_asignacion.substr(-6,6);
 	var id = val;
 	var periodo = document.getElementById('periodos').value;
-	var contador = 0;
 	let tbody = document.querySelector("#alumnosByGrupo");
 	tbody.innerHTML = "";
 	$.ajax({
@@ -36,6 +38,7 @@ function getAlumnosByGroup(val) {
 		data: {
 			id_grupo: id,
 			periodo: periodo,
+			cod_asignacion: cod,
 		},
 		success: function (data) {
 			if (!data.error) {

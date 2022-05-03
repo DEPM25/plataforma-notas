@@ -23,10 +23,11 @@
                     <option value="0">Ninguno</option>
                 </select>
                 <select id="periodos" name="periodo">
-					<option value='1'>Periodo 1</option>
-					<option value='2'>Periodo 2</option>
-					<option value='3'>Periodo 3</option>
-					<option value='4'>Periodo 4</option>
+                    <?php
+                        for ($i=1; $i <= $periodos ; $i++) { 
+                            echo '<option value="'.$i.'">Periodo '.$i.'</option>';
+                        }
+                    ?>
 				</select>
             </div>
 

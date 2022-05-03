@@ -12,8 +12,9 @@ class Notas extends CI_Controller
 
 	public function index()
 	{
+		$data['periodos'] = $this->Teacher_m->getNumPeriodos();
 		if ($this->session->userdata('rol') == "Docente" && $this->session->userdata('status') == "Active") {
-			$this->load->view('Teacher/Notas');
+			$this->load->view('Teacher/Notas', $data);
 		} else {
 			redirect('Login');
 		}
@@ -37,6 +38,7 @@ class Notas extends CI_Controller
 		$id_user = $this->session->userdata('codigo_user');
 		$id_grupo = $_POST['id_grupo'];
 		$periodo = $_POST['periodo'];
+		$cod_asignacion = $_POST['cod_asignacion'];
 
 		if (!$res = $this->Teacher_m->getAlumnosByGrupo($id_grupo, $id_user)) {
 		echo"<div class='alert'>
@@ -44,7 +46,8 @@ class Notas extends CI_Controller
 				<p id='mensaje'>Aún no se le asignan estudiantes</p>
 			</div>" ;
 		} else {
-				if(!$sql = $this->Teacher_m->mostrarNotas($periodo)){
+			print_r($res);
+				if(!$sql = $this->Teacher_m->mostrarNotas($periodo, $cod_asignacion, $id_grupo, $id_user)){
 					foreach ($res as $row) {
 						echo "<tr>";
 						echo "<td> <input type='checkbox' /> </td>";
@@ -63,11 +66,11 @@ class Notas extends CI_Controller
 						echo "</tr>";
 					}
 				}else{
-					$p1 = 'td_Nota_P'.$periodo.'_1' ;
-					$p2 = 'td_Nota_P'.$periodo.'_2' ;
-					$p3 = 'td_Nota_P'.$periodo.'_3' ;
-					$p4 = 'td_Nota_P'.$periodo.'_4' ;
-					$p5 = 'td_Nota_P'.$periodo.'_P' ;
+					$p1 = 'nota_P'.$periodo.'_1' ;
+					$p2 = 'nota_P'.$periodo.'_2' ;
+					$p3 = 'nota_P'.$periodo.'_3' ;
+					$p4 = 'nota_P'.$periodo.'_4' ;
+					$p5 = 'nota_P'.$periodo.'_P' ;
 					
 					foreach ($sql as $data) {
 						echo "<tr>";
@@ -75,10 +78,10 @@ class Notas extends CI_Controller
 						echo "<td>";
 						echo $contador += 1;
 						echo "</td>";
-						/* echo "<td>" . $data->nombre_1 . "</td>";
-						echo "<td>" . $data->nombre_2 . "</td>";
-						echo "<td>" . $data->apellido_1 . "</td>";
-						echo "<td>" . $data->apellido_2 . "</td>"; */
+						echo "<td>" . $data['nombre_1'] . "</td>";
+						echo "<td>" . $data['nombre_2'] . "</td>";
+						echo "<td>" . $data['apellido_1'] . "</td>";
+						echo "<td>" . $data['apellido_2'] . "</td>";
 						echo "<td> <input id='N1$contador' name='N1$contador' maxlength='3' size='2' type='text' value='$data[$p1]' /> </td>";
 						echo "<td> <input id='N2$contador' name='N2$contador' maxlength='3' size='2' type='text' value='$data[$p2]' /> </td>";
 						echo "<td> <input id='N3$contador' name='N3$contador' maxlength='3' size='2' type='text' value='$data[$p3]' /> </td>";
